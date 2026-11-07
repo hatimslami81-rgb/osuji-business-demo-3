@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Source Serif 4", "Noto Sans Arabic", Georgia, "Times New Roman", serif;
+  --color-navy-950: #071525;
+  --color-navy-900: #0b1f3a;
+  --color-navy-800: #123a6b;
+  --color-navy-700: #1a4d8c;
+  --color-navy-100: #e8eef6;
+  --color-navy-50: #f3f6fb;
+  --color-accent-700: #176340;
+  --color-accent-600: #1f7a4d;
+  --color-accent-500: #2a9a63;
+  --color-accent-50: #eef8f2;
+  --color-slate-ink: #334155;
+  --color-mtn: #ffcc00;
+  --color-airtel: #ed1c24;
+  --color-glo: #50b848;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply m-0 min-h-screen bg-navy-50 font-sans text-slate-ink antialiased;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+
+  ::selection {
+    @apply bg-navy-800 text-white;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
