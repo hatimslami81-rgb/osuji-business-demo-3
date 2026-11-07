@@ -57,7 +57,7 @@ export function Checkout() {
     return next
   }
 
-  if (lines.length === 0) {
+  if (lines.length === 0 && !submitting) {
     return (
       <div className="container-page py-16">
         <EmptyState
@@ -73,6 +73,17 @@ export function Checkout() {
     )
   }
 
+  if (submitting) {
+    return (
+      <div className="container-page py-16">
+        <div className="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white px-6 py-12 text-center shadow-sm">
+          <p className="text-lg font-semibold text-navy-900">{t('placing_order')}</p>
+          <p className="mt-2 text-sm text-slate-500">{t('checkout_payment_note')}</p>
+        </div>
+      </div>
+    )
+  }
+
   function updateField<K extends keyof CustomerInfo>(key: K, value: CustomerInfo[K]) {
     setCustomer((prev) => ({ ...prev, [key]: value }))
   }
@@ -83,7 +94,6 @@ export function Checkout() {
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0 || !paymentMethod) return
 
-    setSubmitting(true)
     const order: Order = {
       id: generateOrderId(),
       createdAt: new Date().toISOString(),
@@ -100,9 +110,12 @@ export function Checkout() {
       totalNgn: subtotal,
       demo: true,
     }
+
+    // Persist first, then show transition UI, then navigate, then clear cart.
     saveOrder(order)
+    setSubmitting(true)
+    navigate(`/order-success/${order.id}`, { replace: true })
     clearCart()
-    navigate(`/order-success/${order.id}`)
   }
 
   const field = (key: keyof CustomerInfo, labelKey: TranslationKey, type = 'text') => (

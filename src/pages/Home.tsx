@@ -71,7 +71,11 @@ export function Home() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link to="/shop">
-                <Button size="lg" className="bg-white text-navy-900 hover:bg-navy-50">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="border-white bg-white text-navy-900 shadow-sm hover:bg-navy-50 hover:text-navy-900 focus-visible:text-navy-900 active:bg-navy-100 active:text-navy-900"
+                >
                   {t('explore_products')}
                 </Button>
               </Link>
